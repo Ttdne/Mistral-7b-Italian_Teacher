@@ -1,0 +1,129 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('gif3.gif') center center no-repeat;
+    background-size: cover;
+}
+body::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Điều chỉnh độ đậm nhạt */
+    z-index: 1;
+}
+.container-fluid {
+    display: flex;
+    height: 100vh;
+    align-items: center; 
+    justify-content: center;
+}
+/* Hộp chat */
+.chat-box {
+    background: rgba(255, 255, 255, 0.2); /* Hộp chat trong suốt */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Tin nhắn */
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message { 
+    background-color: #A67B5B; /* Vàng đất */
+    color: black; 
+    text-align: right; 
+    align-self: flex-end;
+    margin-left: auto;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.ai-message { 
+    background-color: #D4B996; /* Be nhạt */
+    color: black; 
+    text-align: left; 
+    align-self: flex-start;
+    margin-right: auto;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.loading { color: rgb(235, 187, 187); font-style: italic; }
+
+/* Right Side: Background Image */
+/* Chatbox Section */
+.chat-section {
+    width: 50%;
+    background: rgba(210, 180, 140, 0.65); /* Nền đen trong suốt */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f8e8c8; /* Màu be nhẹ */
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 5px;
+}
+
+.input-group input {
+    flex: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 25px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.5);
+    color: #432818; /* Nâu đậm */
+}
+
+.input-group input::placeholder {
+    color: rgba(67, 40, 24, 0.6);
+}
+
+.input-group input:focus {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.input-group button {
+    background: #c9a66b; /* Vàng nâu */
+    color: #432818; /* Nâu đậm */
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 25px;
+}
+
+.input-group button:hover {
+    background: #b38e5d;
+}

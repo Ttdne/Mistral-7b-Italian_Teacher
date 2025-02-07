@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Insegnante italiano</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    </head>
+<body>
+
+    <div class="container-fluid">
+        <!-- Left Side: Chatbox -->
+        <div class="chat-section">
+            <h2 class="text-center" style="font-family: 'Dancing Script', cursive; color:rgb(56, 3, 17) ; font-size: 48px; line-height: 2; margin-top: -20px;">🎓 AI Insegnante Italiano</h2>
+            <div id="chatBox" class="chat-box"></div>
+            
+            <div class="input-group mt-3">
+                <input type="text" id="userInput" class="form-control" placeholder="Type your message...">
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    
+        <!-- Right Side: Background Image -->
+    </div>
+
+<script>
+    async function sendMessage() {
+        let inputText = document.getElementById("userInput").value;
+        if (!inputText) return;
+
+        // Hiển thị tin nhắn người dùng
+        let chatBox = document.getElementById("chatBox");
+        let userMessage = `<div class="message user-message">${inputText}</div>`;
+        chatBox.innerHTML += userMessage;
+        document.getElementById("userInput").value = "";
+
+        // Hiển thị "AI is typing..."
+        let loadingMessage = `<div id="loading" class="message ai-message loading">AI is typing...</div>`;
+        chatBox.innerHTML += loadingMessage;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Gửi yêu cầu đến máy chủ chạy LLM Ollama
+        try {
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    input: inputText
+                })
+            });
+
+            const data = await response.json();
+            document.getElementById("loading").remove(); // Xóa dòng "AI is typing..."
+
+            // Hiển thị phản hồi từ AI
+            let aiMessage = `<div class="message ai-message">${data.result}</div>`;
+            chatBox.innerHTML += aiMessage;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById("loading").innerText = "Error getting response.";
+        }
+    }
+</script>
+
+</body>
+</html>
